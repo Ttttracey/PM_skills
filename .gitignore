@@ -4,3 +4,14 @@ __pycache__/
 node_modules/
 .DS_Store
 Thumbs.db
+.pm-workflow/
+.handoff/
+/scripts/pm-runtime-config.js
+.test-artifacts/
+examples/favorites/scripts/
+examples/favorites/.agents/
+examples/favorites/.gitignore
+examples/favorites/.gitattributes
+examples/favorites/.mcp.json.example
+examples/favorites/关键点.md
+examples/favorites/启动原型导出服务.*

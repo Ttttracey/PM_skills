@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="480" viewBox="0 0 1400 480" role="img" aria-labelledby="title desc">
+<title id="title">PM Skills · 从需求到产品交付</title>
+<desc id="desc">需求洞察、HTML PRD、原型与流程、验收复盘组成的完整产品工作流。</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8f6ff"/><stop offset="1" stop-color="#ececfb"/></linearGradient><linearGradient id="accent" x2="1" y2="1"><stop stop-color="#7762d5"/><stop offset="1" stop-color="#514195"/></linearGradient></defs>
+<rect x="1" y="1" width="1398" height="478" rx="28" fill="url(#bg)" stroke="#ded9ef"/>
+<circle cx="1310" cy="30" r="230" fill="#e5defa" opacity=".5"/>
+<g font-family="Segoe UI,Microsoft YaHei,Arial,sans-serif">
+<rect x="62" y="46" width="44" height="44" rx="12" fill="url(#accent)"/>
+<path d="M74 77V59h9c10 0 10 12 0 12h-9m12-12v18" fill="none" stroke="white" stroke-width="3"/>
+<text x="124" y="77" font-size="28" font-weight="700" fill="#3a3159">PM Skills</text>
+<text x="63" y="158" font-size="53" font-weight="700" fill="#29233d">产品需求与交付</text>
+<text x="63" y="226" font-size="53" font-weight="700" fill="#6550b2">工作流工具集</text>
+<text x="66" y="276" font-size="21" fill="#74698c">HTML PRD · 交互原型 · 流程图 · 验收复盘</text>
+<g transform="translate(966 49) rotate(3 166 125)">
+<rect width="334" height="251" rx="18" fill="#fff" stroke="#d2c9e9"/>
+<rect x="23" y="21" width="100" height="27" rx="7" fill="#eee9fc"/>
+<text x="35" y="40" font-size="14" font-weight="700" fill="#6550aa">HTML PRD</text>
+<text x="23" y="79" font-size="21" font-weight="700" fill="#3a3159">正文骨架与业务规则</text>
+<rect x="23" y="100" width="288" height="31" rx="5" fill="#f4f1fb"/>
+<text x="34" y="121" font-size="13" fill="#75658e">背景 / 目标 / 范围 / 详细方案</text>
+<rect x="23" y="143" width="87" height="72" rx="7" fill="#ece7f8"/>
+<rect x="123" y="146" width="172" height="8" rx="4" fill="#dcd5ed"/>
+<rect x="123" y="166" width="150" height="8" rx="4" fill="#eae5f4"/>
+<rect x="123" y="186" width="162" height="8" rx="4" fill="#eae5f4"/>
+<text x="39" y="184" font-size="14" fill="#7b689c">原型预览</text>
+</g>
+<g transform="translate(63 340)"><rect width="293" height="74" rx="15" fill="#fff" stroke="#ded6ef"/><text x="20" y="30" font-size="13" font-weight="700" fill="#9986bd">01 / DISCOVER</text><text x="20" y="56" font-size="21" font-weight="700" fill="#42345f">需求洞察</text></g>
+<g transform="translate(389 340)"><rect width="293" height="74" rx="15" fill="#fff" stroke="#ded6ef"/><text x="20" y="30" font-size="13" font-weight="700" fill="#9986bd">02 / DEFINE</text><text x="20" y="56" font-size="21" font-weight="700" fill="#42345f">PRD 与业务规则</text></g>
+<g transform="translate(715 340)"><rect width="293" height="74" rx="15" fill="#fff" stroke="#ded6ef"/><text x="20" y="30" font-size="13" font-weight="700" fill="#9986bd">03 / PROTOTYPE</text><text x="20" y="56" font-size="21" font-weight="700" fill="#42345f">原型与流程图</text></g>
+<g transform="translate(1041 340)"><rect width="293" height="74" rx="15" fill="#fff" stroke="#ded6ef"/><text x="20" y="30" font-size="13" font-weight="700" fill="#9986bd">04 / VALIDATE</text><text x="20" y="56" font-size="21" font-weight="700" fill="#42345f">验收与数据复盘</text></g>
+<path d="M365 377h14m-5-5 5 5-5 5M691 377h14m-5-5 5 5-5 5M1017 377h14m-5-5 5 5-5 5" stroke="#a191bf" fill="none" stroke-width="2"/>
+<text x="65" y="451" font-size="13" letter-spacing="2" fill="#9384a9">PRODUCT REQUIREMENTS / DESIGN / VALIDATION</text>
+</g></svg>
