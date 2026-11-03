@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>演示清单 · 离线原型起步文件</title>
+<style>
+:root{font-family:system-ui,"Microsoft YaHei",sans-serif;color:#203131;background:#f5f7f5;line-height:1.6;--accent:#17634a}
+*{box-sizing:border-box}body{margin:0}header,main{max-width:920px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;align-items:center;gap:20px}a{color:var(--accent)}nav{display:flex;gap:18px}nav a[aria-current="page"]{font-weight:700;text-underline-offset:6px}.badge{font-size:12px;letter-spacing:.1em;color:var(--accent)}h1{font-size:clamp(28px,6vw,44px);line-height:1.2;margin:14px 0}h2{font-size:22px}p{color:#52645e}.panel{padding:28px;border:1px solid #d9e3dd;border-radius:18px;background:white;margin:24px 0}.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}button{font:inherit;border:0;border-radius:9px;padding:10px 18px;background:var(--accent);color:white;cursor:pointer}button.secondary{background:#e9efeb;color:#254d3c}button:disabled{opacity:.6;cursor:wait}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #b77813;outline-offset:3px}label{display:block;font-weight:600;margin:18px 0 8px}input{display:block;width:100%;border:1px solid #9db2a4;border-radius:9px;padding:12px;font:inherit}ul{list-style:none;padding:0}li{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid #e6ece8}li span{overflow-wrap:anywhere;min-width:0}li button{flex-shrink:0}.empty{padding:30px 0;text-align:center}.note{font-size:14px}.error{color:#a12b28;min-height:1.6em}.notice{min-height:1.6em;color:var(--accent)}[hidden]{display:none!important}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}@media(max-width:480px){header,main{padding:18px}header{align-items:flex-start}.panel{padding:20px}nav{gap:12px}li{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header><strong>PM / 演示清单</strong><nav aria-label="主导航"><a href="#list" data-nav="list">清单</a><a href="#create" data-nav="create">新建</a></nav></header>
+<main>
+<div class="badge">INTERACTIVE PROTOTYPE · 演示数据</div>
+<h1>把一个想法，<br>变成可以点击的体验。</h1>
+<p>离线原型起步文件。展示导航、创建、空态与失败重试；请按实际产品需求替换。</p>
+<p class="note">数据仅保存在当前页面内存，刷新后清空。没有连接真实服务。</p>
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
+<section id="list" class="panel" aria-labelledby="list-title">
+<div class="toolbar"><h2 id="list-title" tabindex="-1">我的演示清单 <span id="count">0</span></h2><a href="#create">＋ 新建条目</a></div>
+<div id="empty" class="empty"><strong>还没有条目</strong><p>创建第一条演示记录，试试完整操作路径。</p><a href="#create">创建第一条</a></div>
+<ul id="items" aria-label="已创建条目"></ul>
+</section>
+<section id="create" class="panel" aria-labelledby="create-title" hidden>
+<h2 id="create-title" tabindex="-1">新建条目</h2>
+<form id="form" novalidate>
+<label for="name">条目名称</label><input id="name" name="name" maxlength="40" autocomplete="off" required aria-describedby="name-help error">
+<p id="name-help" class="note">必填，最多 40 个字符。示例：梳理收藏功能的用户场景。</p>
+<p id="error" class="error" role="alert"></p>
+<div class="actions"><button type="submit">保存到清单</button><button id="simulate" class="secondary" type="button">模拟一次保存失败</button><a href="#list">取消</a></div>
+</form>
+</section>
+<p class="note">演示检查：创建 → 返回清单 → 删除至空态；新建 → 模拟失败 → 重试；浏览器返回与刷新。</p>
+</main>
+<script>
+'use strict';
+const records = [];
+let nextId = 1;
+let failNext = false;
+const $ = id => document.getElementById(id);
+function message(text) { $('notice').textContent = text; }
+function renderList() {
+  $('items').replaceChildren();
+  $('count').textContent = String(records.length);
+  $('empty').hidden = records.length > 0;
+  records.forEach(record => {
+    const row = document.createElement('li');
+    const title = document.createElement('span');
+    title.textContent = record.name;
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'secondary';
+    remove.textContent = '删除';
+    remove.setAttribute('aria-label', `删除 ${record.name}`);
+    remove.addEventListener('click', () => {
+      records.splice(records.findIndex(item => item.id === record.id), 1);
+      renderList();
+      message('条目已删除（仅演示）。');
+      $('list-title').focus();
+    });
+    row.append(title, remove);
+    $('items').append(row);
+  });
+}
+function route(focus = true) {
+  const requested = location.hash.slice(1);
+  const page = requested === 'create' ? 'create' : 'list';
+  if (requested !== page) history.replaceState(null, '', '#list');
+  ['list', 'create'].forEach(id => { $(id).hidden = id !== page; });
+  document.querySelectorAll('[data-nav]').forEach(link => {
+    if (link.dataset.nav === page) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  if (page !== 'create') {
+    failNext = false;
+    $('simulate').disabled = false;
+    $('simulate').textContent = '模拟一次保存失败';
+    $('error').textContent = '';
+    $('name').removeAttribute('aria-invalid');
+  }
+  if (focus) $(page + '-title').focus();
+}
+$('simulate').addEventListener('click', () => {
+  failNext = true;
+  $('simulate').disabled = true;
+  $('simulate').textContent = '下次保存将模拟失败';
+  message('已开启失败演示，请填写名称后保存。');
+});
+$('name').addEventListener('input', () => {
+  $('name').removeAttribute('aria-invalid');
+  $('error').textContent = '';
+});
+$('form').addEventListener('submit', event => {
+  event.preventDefault();
+  const name = $('name').value.trim();
+  if (!name) {
+    $('error').textContent = '请填写条目名称。';
+    $('name').setAttribute('aria-invalid', 'true');
+    $('name').focus();
+    return;
+  }
+  if (failNext) {
+    failNext = false;
+    $('simulate').disabled = false;
+    $('simulate').textContent = '模拟一次保存失败';
+    $('error').textContent = '这是模拟保存失败，内容已保留；再次点击保存即可重试。';
+    return;
+  }
+  records.push({ id: nextId++, name });
+  $('form').reset();
+  $('error').textContent = '';
+  renderList();
+  message('条目已保存（仅演示，刷新后清空）。');
+  location.hash = 'list';
+});
+window.addEventListener('hashchange', () => route());
+renderList();
+route(false);
+</script>
+</body>
+</html>
